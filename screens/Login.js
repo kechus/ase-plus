@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { Text, View, TextInput, Button } from "react-native";
 import { login, fetchSchedule } from "../Utils/Service";
 import { parseHTML } from "../Utils/ParserHTML";
-import { getSchedule, storeSchedule } from "../Utils/FileHandling";
+import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
 
 const Login = ({ navigation, props }) => {
   const [registro, setRegistro] = useState("");
@@ -20,8 +20,8 @@ const Login = ({ navigation, props }) => {
     }
     const scheduleHTML = await fetchSchedule();
     const scheduleObject = parseHTML(scheduleHTML);
-    storeSchedule(scheduleObject);
-    await tryGetLocalSchedule()
+    await storeItem(scheduleObject, "schedule");
+    await tryGetLocalSchedule();
   };
 
   useEffect(() => {
@@ -29,9 +29,9 @@ const Login = ({ navigation, props }) => {
   }, []);
 
   const tryGetLocalSchedule = async () => {
-    const schedule = await getSchedule();
+    const schedule = await getItemFromStorage("schedule");
     if (schedule !== null) {
-      navigation.navigate("home", { schedule: JSON.stringify(schedule) });
+      navigation.navigate("home");
     }
   };
 
