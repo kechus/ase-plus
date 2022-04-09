@@ -10,16 +10,16 @@ export default function App() {
     <NavigationContainer>
       <stack.Navigator>
         <stack.Screen
-          name='home'
-          component={Home}
-          options={{ title: 'Welcome' }}>
-        </stack.Screen>
-        <stack.Screen
-          name='login'
+          name="login"
           component={Login}
-          options={{ title: 'Login', headerShown: false }}>
-        </stack.Screen>
+          options={{ title: "Login" }}
+        ></stack.Screen>
+        <stack.Screen
+          name="home"
+          component={Home}
+          options={{ title: "Welcome" }}
+        ></stack.Screen>
       </stack.Navigator>
-    </NavigationContainer >
+    </NavigationContainer>
   );
 }
