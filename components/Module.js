@@ -1,14 +1,23 @@
-import { React, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
+import CustomText from "./CustomText";
+import { COLORS } from "../styles/global";
 
 const Module = ({ data }) => {
   return (
-    <View>
-      <Text>{data.hour}</Text>
-      <Text>{data.class.materia}</Text>
-      <Text>{data.class.salon}</Text>
+    <View style={styles.moduleContainer}>
+      <CustomText text={data.class.materia} />
+      <CustomText text={data.hour} />
+      <CustomText text={data.class.salon} />
     </View>
   );
 };
 
+const styles = StyleSheet.create({
+  moduleContainer: {
+    backgroundColor: COLORS.secondary,
+    borderWidth: 2,
+    padding: 5,
+    margin: 2,
+  },
+});
 export default Module;

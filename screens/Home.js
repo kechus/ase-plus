@@ -1,8 +1,9 @@
 import { React, useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import Module from "../components/Module";
 import DatePicker from "../components/DatePicker";
+import { globalStyles } from "../styles/global";
 
 const Home = ({ navigation, route }) => {
   const [schedule, setSchedule] = useState([]);
@@ -17,22 +18,31 @@ const Home = ({ navigation, route }) => {
   }, []);
 
   const handleDayChange = (day) => {
-    console.log(day);
     setDay(day);
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={globalStyles.body}>
       <DatePicker onDayChange={handleDayChange} />
-      {schedule.map((hour, i) => {
-        const todayClass = hour.classes[day];
-        if (Object.keys(todayClass).length !== 0)
-          return (
-            <Module key={i} data={{ class: todayClass, hour: hour.time }} />
-          );
-      })}
+      {/* <TodayModules /> */}
+      <View style={styles.container}>
+        {schedule.map((hour, i) => {
+          const todayClass = hour.classes[day];
+          if (Object.keys(todayClass).length !== 0)
+            return (
+              <Module key={i} data={{ class: todayClass, hour: hour.time }} />
+            );
+        })}
+      </View>
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 16,
+  },
+});
 
 export default Home;

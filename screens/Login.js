@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from "react";
-import { Text, View, TextInput, Button } from "react-native";
+import { Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { login, fetchSchedule } from "../Utils/Service";
 import { parseHTML } from "../Utils/ParserHTML";
 import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
+import { globalStyles, COLORS } from "../styles/global";
 
 const Login = ({ navigation, props }) => {
   const [registro, setRegistro] = useState("");
@@ -36,24 +37,49 @@ const Login = ({ navigation, props }) => {
   };
 
   return (
-    <View>
-      <TextInput
-        placeholder="Registro"
-        onChangeText={setRegistro}
-        value={registro}
-      />
+    <View style={globalStyles.body}>
+      <View style={loginStyles.container}>
+        <View>
+          <View style={globalStyles.textInputWrap}>
+            <TextInput
+              placeholder="Registro"
+              onChangeText={setRegistro}
+              value={registro}
+              style={globalStyles.textInput}
+              placeholderTextColor={"white"}
+            />
+          </View>
 
-      <TextInput
-        placeholder="Contraseña"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry
-      />
+          <View style={globalStyles.textInputWrap}>
+            <TextInput
+              placeholder="Contraseña"
+              onChangeText={setPassword}
+              value={password}
+              secureTextEntry={true}
+              placeholderTextColor={"white"}
+              style={globalStyles.textInput}
+            />
+          </View>
+        </View>
 
-      <Button onPress={tryLogin} title="Iniciar sesión" />
-      <Text>Bienvenidos al himalaya, heladoss</Text>
+        <Button
+          onPress={tryLogin}
+          title="Iniciar sesión"
+          color={COLORS.secondary}
+          styles={loginStyles.loginButton}
+        />
+      </View>
     </View>
   );
 };
+
+const loginStyles = StyleSheet.create({
+  loginButton: {},
+  container: {
+    flex: 1,
+    marginHorizontal: 16,
+    justifyContent: "space-around",
+  },
+});
 
 export default Login;

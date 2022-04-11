@@ -1,5 +1,5 @@
-import { React, useEffect, useState } from "react";
-import { Button, View, Text } from "react-native";
+import { React } from "react";
+import { ScrollView, StyleSheet } from "react-native";
 import DayOfWeek from "./DayOfWeek";
 
 const DAYS_OF_THE_WEEK = [
@@ -16,17 +16,25 @@ const DatePicker = (props) => {
     props.onDayChange(i);
   };
   return (
-    <View>
+    <ScrollView style={sytles.picker} horizontal={true}>
       {DAYS_OF_THE_WEEK.map((day, i) => {
         return (
           <DayOfWeek
             onDaySelect={onChange}
             values={{ dayName: day, index: i }}
+            key={i}
           />
         );
       })}
-    </View>
+    </ScrollView>
   );
 };
+
+const sytles = StyleSheet.create({
+  picker: {
+    flex: 1,
+    flexDirection: "row",
+  },
+});
 
 export default DatePicker;
