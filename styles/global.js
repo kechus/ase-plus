@@ -29,5 +29,10 @@ const globalStyles = StyleSheet.create({
     borderWidth: 2,
     padding: 10,
   },
+  alert: {
+    position: "absolute",
+    bottom: "5%",
+    alignSelf: "flex-end",
+  },
 });
 export { globalStyles, COLORS };

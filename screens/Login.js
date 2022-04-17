@@ -12,12 +12,16 @@ import { parseHTML } from "../Utils/ParserHTML";
 import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
 import { globalStyles, COLORS } from "../styles/global";
 import Loading from "../components/Loading";
+import Alert from "../components/Alert";
+
+const ERROR = "Error al iniciar sesión";
 
 const Login = ({ navigation, props }) => {
   const [registro, setRegistro] = useState("");
   const [password, setPassword] = useState("");
   const [isTryingLogin, setIsTryingLogin] = useState(false);
   const [isHiddenPassword, setIsHiddenPassword] = useState(true);
+  const [isShowingAlert, setIsShowingAlert] = useState(false);
   const icon = isHiddenPassword
     ? require("../assets/hidden.png")
     : require("../assets/eye.png");
@@ -30,7 +34,7 @@ const Login = ({ navigation, props }) => {
     };
     const success = await login(me);
     if (!success) {
-      console.log("nosepudo");
+      setIsShowingAlert(true);
       setIsTryingLogin(false);
       return;
     }
@@ -50,6 +54,10 @@ const Login = ({ navigation, props }) => {
     if (schedule !== null) {
       navigation.navigate("home");
     }
+  };
+
+  const onDismiss = () => {
+    setIsShowingAlert(false);
   };
 
   return (
@@ -91,6 +99,10 @@ const Login = ({ navigation, props }) => {
         />
 
         {isTryingLogin ? <Loading /> : null}
+
+        {isShowingAlert ? (
+          <Alert onDismiss={onDismiss} alertText={ERROR} />
+        ) : null}
       </View>
     </View>
   );

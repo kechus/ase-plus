@@ -1,12 +1,13 @@
 import { StyleSheet, Image } from "react-native";
+import { globalStyles } from "../styles/global";
 
 const Loading = () => {
   return (
-    <Image source={require("../assets/loading.png")} style={styles.image} />
+    <Image
+      source={require("../assets/loading.png")}
+      style={globalStyles.alert}
+    />
   );
 };
 
-const styles = StyleSheet.create({
-  // image: { alignSelf: "flex-start" },
-});
 export default Loading;

@@ -5,7 +5,6 @@ const HTMLParser = require('fast-html-parser');
 const parseHTML = (HTMLString) => {
   const horario = [];
   const root = HTMLParser.parse(HTMLString);
-  console.log("=======nuevo=============");
   const numberOfTables = root.querySelectorAll(".tabla").length;
   const table = root.querySelectorAll(".tabla")[numberOfTables - 1];
   for (let i = 4; i < table.childNodes.length; i++) {
