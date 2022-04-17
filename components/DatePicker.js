@@ -12,16 +12,18 @@ const DAYS_OF_THE_WEEK = [
 ];
 
 const DatePicker = (props) => {
+
   const onChange = (i) => {
     props.onDayChange(i);
   };
+
   return (
     <ScrollView style={sytles.picker} horizontal={true}>
       {DAYS_OF_THE_WEEK.map((day, i) => {
         return (
           <DayOfWeek
             onDaySelect={onChange}
-            values={{ dayName: day, index: i }}
+            values={{ dayName: day, index: i, isToday: props.today == i }}
             key={i}
           />
         );

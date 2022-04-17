@@ -1,11 +1,11 @@
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet, StatusBar, Dimensions } from "react-native";
 
 const COLORS = {
-  primary: "#150811",
-  secondary: "#380036",
-  third: "#26081C",
-  clear: "#0CBABA",
-  clearer: "#01BAEF",
+  primary: "#466995",
+  secondary: "#F58F29",
+  third: "#7D4600",
+  clear: "#4464AD",
+  clearer: "#A4B0F5",
 };
 
 const globalStyles = StyleSheet.create({
@@ -23,6 +23,7 @@ const globalStyles = StyleSheet.create({
   textInputWrap: {
     marginTop: "5%",
     backgroundColor: COLORS.third,
+    width: Dimensions.get("window").width - 100,
   },
   button: {
     borderWidth: 2,
