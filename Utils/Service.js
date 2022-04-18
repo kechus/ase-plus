@@ -1,40 +1,67 @@
 const LOGIN_ROUTE = 'https://ase1.ceti.mx/tecnologo/seguridad/iniciarsesion'
 const SCHEDULE_ROUTE = 'https://ase1.ceti.mx/tecnologo/tgoalumno/horario'
 
+import iconv from "iconv-lite";
+import { Buffer } from "buffer";
 
 const login = async (user) => {
-  const userOptions = buildLoginOptions(user)
-  const resultingHTML = await fetchHtmlAsText(LOGIN_ROUTE, userOptions)
-  return succesfulLogin(resultingHTML)
-}
-
-const buildLoginOptions = (user) => {
-  const formData = buildFormData(user)
-  return {
-    method: 'post',
-    body: formData
-  }
-}
-
-const buildFormData = (user) => {
-  let formData = new FormData();
-  formData.append('registro', user.registro);
-  formData.append('password', user.password)
-  return formData
-}
-
-const fetchHtmlAsText = async (path, options) => {
-  const res = await fetch(path, options);
-  return await res.text();
+  const resultingHTML = await postUser(LOGIN_ROUTE, user);
+  return succesfulLogin(resultingHTML);
 };
 
 const succesfulLogin = (resultingHTML) => {
   return !resultingHTML.includes("INGRESO AL SISTEMA ESCOLAR");
 };
 
+function postUser(route, user) {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+
+    request.onload = () => {
+      if (request.status === 200) {
+        resolve(iconv.decode(Buffer.from(request.response), "iso-8859-2"));
+      } else {
+        reject(new Error(request.statusText));
+      }
+    };
+    request.onerror = () => reject(new Error(request.statusText));
+    request.responseType = "arraybuffer";
+
+    request.open("POST", route);
+    request.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded"
+    );
+    request.send(`registro=${user.registro}&password=${user.password}`);
+  });
+}
+
+function getSchedule(route) {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+
+    request.onload = () => {
+      if (request.status === 200) {
+        resolve(iconv.decode(Buffer.from(request.response), "iso-8859-2"));
+      } else {
+        reject(new Error(request.statusText));
+      }
+    };
+    request.onerror = () => reject(new Error(request.statusText));
+    request.responseType = "arraybuffer";
+
+    request.open("GET", route);
+    request.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded"
+    );
+    request.send();
+  });
+}
+
 const fetchSchedule = async () => {
-  const html = await fetchHtmlAsText(SCHEDULE_ROUTE, {});
-  return html;
+  const buffer = await getSchedule(SCHEDULE_ROUTE);
+  return buffer;
 };
 
 export { fetchSchedule, login }
