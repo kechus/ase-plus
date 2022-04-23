@@ -61,20 +61,20 @@ const Login = ({ navigation, props }) => {
   }, []);
 
   async function schedulePushNotification() {
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "You've got mail! 📬",
-        body: "Here is the notification body",
-        data: { data: "goes here" },
-      },
-      trigger: { seconds: 10000 },
-    });
+    // await Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: "You've got mail! 📬",
+    //     body: "Here is the notification body",
+    //     data: { data: "goes here" },
+    //   },
+    //   trigger: { seconds: 10000 },
+    // });
   }
 
   const tryGetLocalSchedule = async () => {
     const schedule = await getItemFromStorage("schedule");
     if (schedule !== null) {
-      navigation.navigate("home");
+      navigation.navigate("full_schedule");
     }
   };
 
