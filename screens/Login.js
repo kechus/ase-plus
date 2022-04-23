@@ -10,10 +10,11 @@ import {
 import { login, fetchSchedule } from "../Utils/Service";
 import { parseHTML } from "../Utils/ParserHTML";
 import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
-import { globalStyles, COLORS } from "../styles/global";
+import { globalStyles, COLORS, TextTypes } from "../styles/global";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
 import * as Notifications from "expo-notifications";
+import CustomText from "../components/CustomText";
 
 const ERROR = "Error al iniciar sesión";
 
@@ -66,7 +67,7 @@ const Login = ({ navigation, props }) => {
         body: "Here is the notification body",
         data: { data: "goes here" },
       },
-      trigger: { minute: 50 },
+      trigger: { seconds: 10000 },
     });
   }
 
@@ -83,7 +84,7 @@ const Login = ({ navigation, props }) => {
 
   return (
     <View style={globalStyles.body}>
-      <View style={loginStyles.container}>
+      <View style={globalStyles.container}>
         <View>
           <View style={globalStyles.textInputWrap}>
             <TextInput
@@ -124,18 +125,16 @@ const Login = ({ navigation, props }) => {
         {isShowingAlert ? (
           <Alert onDismiss={onDismiss} alertText={ERROR} />
         ) : null}
+
+        <TouchableHighlight onPress={() => navigation.navigate("about")}>
+          <CustomText text="Acerca de" type={TextTypes.underlined} />
+        </TouchableHighlight>
       </View>
     </View>
   );
 };
 
 const loginStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 16,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
   passwordView: {
     ...globalStyles.textInputWrap,
     flexDirection: "row",

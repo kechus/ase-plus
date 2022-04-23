@@ -1,6 +1,6 @@
 import { StyleSheet, StatusBar, Dimensions } from "react-native";
 
-const COLORS = {
+export const COLORS = {
   primary: "#466995",
   secondary: "#F58F29",
   third: "#7D4600",
@@ -8,7 +8,7 @@ const COLORS = {
   clearer: "#A4B0F5",
 };
 
-const globalStyles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
   body: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
@@ -34,5 +34,21 @@ const globalStyles = StyleSheet.create({
     bottom: "5%",
     alignSelf: "flex-end",
   },
+  container: {
+    flex: 1,
+    marginHorizontal: 16,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
 });
-export { globalStyles, COLORS };
+
+export const TextTypes = {
+  normal: "view",
+  bold: "bold",
+  underlined: "underlined",
+};
+
+export const TextSizes = {
+  h1: 24,
+  h2: 16,
+};
