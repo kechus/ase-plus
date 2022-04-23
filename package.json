@@ -26,7 +26,8 @@
     "react-native-screens": "~3.10.1",
     "react-native-web": "0.17.1",
     "stream": "^0.0.2",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "expo-notifications": "~0.14.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

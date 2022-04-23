@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import {
   Image,
   View,
@@ -13,8 +13,17 @@ import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
 import { globalStyles, COLORS } from "../styles/global";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
+import * as Notifications from "expo-notifications";
 
 const ERROR = "Error al iniciar sesión";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const Login = ({ navigation, props }) => {
   const [registro, setRegistro] = useState("");
@@ -47,7 +56,19 @@ const Login = ({ navigation, props }) => {
 
   useEffect(() => {
     tryGetLocalSchedule();
+    schedulePushNotification();
   }, []);
+
+  async function schedulePushNotification() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You've got mail! 📬",
+        body: "Here is the notification body",
+        data: { data: "goes here" },
+      },
+      trigger: { minute: 50 },
+    });
+  }
 
   const tryGetLocalSchedule = async () => {
     const schedule = await getItemFromStorage("schedule");
