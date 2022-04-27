@@ -40,7 +40,7 @@ const Home = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView style={globalStyles.body}>
+    <ScrollView style={globalStyles.drawerBody}>
       <DatePicker onDayChange={handleDayChange} today={day} />
       <View style={styles.container}>
         {schedule.map((hour, i) => {

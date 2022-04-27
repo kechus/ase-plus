@@ -14,6 +14,10 @@ export const globalStyles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
     backgroundColor: COLORS.primary,
   },
+  drawerBody: {
+    flex: 1,
+    backgroundColor: COLORS.primary,
+  },
   textInput: {
     height: 50,
     borderWidth: 2,

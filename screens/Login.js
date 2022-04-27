@@ -14,7 +14,6 @@ import { globalStyles, COLORS, TextTypes } from "../styles/global";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
 import * as Notifications from "expo-notifications";
-import CustomText from "../components/CustomText";
 
 const ERROR = "Error al iniciar sesión";
 
@@ -74,7 +73,7 @@ const Login = ({ navigation, props }) => {
   const tryGetLocalSchedule = async () => {
     const schedule = await getItemFromStorage("schedule");
     if (schedule !== null) {
-      navigation.navigate("full_schedule");
+      navigation.navigate("main");
     }
   };
 
@@ -125,10 +124,6 @@ const Login = ({ navigation, props }) => {
         {isShowingAlert ? (
           <Alert onDismiss={onDismiss} alertText={ERROR} />
         ) : null}
-
-        <TouchableHighlight onPress={() => navigation.navigate("about")}>
-          <CustomText text="Acerca de" type={TextTypes.underlined} />
-        </TouchableHighlight>
       </View>
     </View>
   );

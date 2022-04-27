@@ -1,9 +1,8 @@
-import { ScrollView, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import { globalStyles } from "../styles/global";
 import Card from "../components/Card";
-import Hr from "../components/Hr";
 
 const FullSchedule = () => {
   const [cards, setCards] = useState([]);
@@ -45,7 +44,7 @@ const FullSchedule = () => {
   return (
     <View style={styles.body}>
       {cards.map((card, i) => {
-        return <View>{card}</View>;
+        return <View key={i}>{card}</View>;
       })}
     </View>
   );
@@ -53,7 +52,7 @@ const FullSchedule = () => {
 
 const styles = StyleSheet.create({
   body: {
-    ...globalStyles.body,
+    ...globalStyles.drawerBody,
     flexDirection: "row",
     flexWrap: "wrap",
   },
