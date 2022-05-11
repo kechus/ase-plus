@@ -2,10 +2,8 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import { useEffect, useState } from "react";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import CustomText from "./CustomText";
-import moment from "moment";
-import "moment/locale/es-mx";
 import { globalStyles, TextTypes } from "../styles/global";
-moment.locale("es-mx");
+import { momentIsInHour } from "../Utils/Time";
 
 const Timeline = () => {
   const [hours, setHours] = useState([]);
@@ -24,16 +22,6 @@ const Timeline = () => {
     };
     getScheduleFromStorage();
   }, []);
-
-  const momentIsInHour = (hour) => {
-    const format = "hh:mm";
-    const [bottomLimit, upperLimit] = hour.split("-").map((str) => str.trim());
-    const currentTime = moment();
-    const bottomTime = moment(bottomLimit, format);
-    const upperTime = moment(upperLimit, format);
-
-    return currentTime.isBetween(bottomTime, upperTime);
-  };
 
   return (
     <View style={styles.line}>

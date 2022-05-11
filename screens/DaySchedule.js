@@ -3,26 +3,9 @@ import { ScrollView, View, StyleSheet } from "react-native";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import Module from "../components/Module";
 import DatePicker from "../components/DatePicker";
-import moment from "moment";
-import "moment/locale/es-mx";
 import { globalStyles } from "../styles/global";
+import { momentIsInHour, selectTodaysWeekday } from "../Utils/Time";
 
-moment.locale("es-mx");
-const selectTodaysWeekday = () => {
-  //offset so that lunes is 0 and sabado 5
-  const numberOfWeek = moment().day() - 1;
-  return numberOfWeek === -1 ? 0 : numberOfWeek;
-};
-
-const momentIsInHour = (hour) => {
-  const format = "hh:mm";
-  const [bottomLimit, upperLimit] = hour.split("-").map((str) => str.trim());
-  const currentTime = moment();
-  const bottomTime = moment(bottomLimit, format);
-  const upperTime = moment(upperLimit, format);
-
-  return currentTime.isBetween(bottomTime, upperTime);
-};
 const Home = ({ navigation, route }) => {
   const [schedule, setSchedule] = useState([]);
   const [day, setDay] = useState(selectTodaysWeekday());
