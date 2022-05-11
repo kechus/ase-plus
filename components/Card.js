@@ -1,24 +1,29 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { View } from "react-native";
-import { COLORS } from "../styles/global";
+import { COLORS, globalStyles } from "../styles/global";
 import CustomText from "./CustomText";
 
 const Card = ({ day }) => {
-  return (
+  return Object.keys(day) == 0 ? (
+    <View style={styles.emptyCard}></View>
+  ) : (
     <View style={styles.card}>
-      {Object.keys(day) == 0 ? null : <CustomText text={day.materia} />}
+      <CustomText text={day.materia} maxLines={2} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    width: Dimensions.get("window").width / 6,
-    height: Dimensions.get("window").height / 10,
+    ...globalStyles.card,
     flex: 1,
     justifyContent: "center",
-    backgroundColor: COLORS.third,
-    borderWidth: 1,
+    alignItems: "center",
+    backgroundColor: COLORS.secondary,
+  },
+  emptyCard: {
+    ...globalStyles.card,
+    backgroundColor: COLORS.primary,
   },
 });
 

@@ -1,8 +1,10 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import { globalStyles } from "../styles/global";
 import Card from "../components/Card";
+import Timeline from "../components/Timeline";
+import uuid from "react-native-uuid";
 
 const FullSchedule = () => {
   const [cards, setCards] = useState([]);
@@ -34,7 +36,7 @@ const FullSchedule = () => {
     let dayCounter = 0;
     for (const day of schedule) {
       for (const myClass of day) {
-        myCards[dayCounter].push(<Card day={myClass} />);
+        myCards[dayCounter].push(<Card day={myClass} key={uuid.v4()} />);
       }
       dayCounter++;
     }
@@ -42,17 +44,22 @@ const FullSchedule = () => {
   };
 
   return (
-    <View style={styles.body}>
-      {cards.map((card, i) => {
-        return <View key={i}>{card}</View>;
-      })}
-    </View>
+    <ScrollView style={globalStyles.drawerBody}>
+      <View style={styles.body}>
+        <Timeline />
+        {cards.map((card, i) => {
+          return <View key={i}>{card}</View>;
+        })}
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  body: {
+  mainBody: {
     ...globalStyles.drawerBody,
+  },
+  body: {
     flexDirection: "row",
     flexWrap: "wrap",
   },

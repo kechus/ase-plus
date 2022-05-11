@@ -44,6 +44,13 @@ export const globalStyles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
   },
+  card: {
+    width: (Dimensions.get("window").width - 35) / 6,
+    height: Dimensions.get("window").height / 10,
+    marginBottom: 4,
+    borderRadius: 2.5,
+    borderWidth: 0.2,
+  },
 });
 
 export const TextTypes = {
