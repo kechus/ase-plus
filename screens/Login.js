@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect } from "react";
 import {
   Image,
   View,
@@ -10,20 +10,13 @@ import {
 import { login, fetchSchedule } from "../Utils/Service";
 import { parseHTML } from "../Utils/ParserHTML";
 import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
-import { globalStyles, COLORS, TextTypes } from "../styles/global";
+import { globalStyles, COLORS } from "../styles/global";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
-import * as Notifications from "expo-notifications";
+import { scheduleAllNotifications } from "../Utils/Notifications";
+import { getAllScheduledNotificationsAsync } from "expo-notifications";
 
 const ERROR = "Error al iniciar sesión";
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
-});
 
 const Login = ({ navigation, props }) => {
   const [registro, setRegistro] = useState("");
@@ -56,23 +49,15 @@ const Login = ({ navigation, props }) => {
 
   useEffect(() => {
     tryGetLocalSchedule();
-    schedulePushNotification();
   }, []);
-
-  async function schedulePushNotification() {
-    // await Notifications.scheduleNotificationAsync({
-    //   content: {
-    //     title: "You've got mail! 📬",
-    //     body: "Here is the notification body",
-    //     data: { data: "goes here" },
-    //   },
-    //   trigger: { seconds: 10000 },
-    // });
-  }
 
   const tryGetLocalSchedule = async () => {
     const schedule = await getItemFromStorage("schedule");
     if (schedule !== null) {
+      const notifs = await getAllScheduledNotificationsAsync();
+      if (notifs.length === 0) {
+        await scheduleAllNotifications();
+      }
       navigation.navigate("main");
     }
   };

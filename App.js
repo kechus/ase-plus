@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import DaySchedule from "./screens/DaySchedule";
 import Login from "./screens/Login";
 import About from "./screens/About";
@@ -10,6 +10,15 @@ import FullSchedule from "./screens/FullSchedule";
 import Logout from "./screens/Logout";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { getItemFromStorage } from "./Utils/FileHandling";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -73,6 +82,8 @@ function FullMainDrawerScreen() {
 
 export default function App() {
   const [screenName, setScreenName] = useState("");
+  const notificationListener = useRef();
+
   useEffect(() => {
     const tryGetInitialScreen = async () => {
       const initialScreen = await getItemFromStorage("initialScreen");
@@ -80,7 +91,16 @@ export default function App() {
         setScreenName(initialScreen);
       }
     };
+
     tryGetInitialScreen();
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {});
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+    };
   }, []);
 
   return (
