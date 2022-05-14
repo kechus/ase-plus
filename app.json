@@ -21,7 +21,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "versionCode": 1,
+      "package": "com.kechus.aseplus"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,10 +32,14 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/notification-icon.png",
-          "color": "#ffffff"
+          "icon": "./assets/notification_icon.png",
+          "color": "#000000"
         }
       ]
-    ]
+    ],
+    "notification": {
+      "icon": "./assets/notification_icon.png",
+      "color": "#000000"
+    }
   }
 }

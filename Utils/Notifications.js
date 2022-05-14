@@ -5,7 +5,7 @@ import { getNotificationTime } from "./Time";
 export const scheduleNotification = async (info) => {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: info.subject,
+      title: "📚 " + info.subject,
       body: info.place,
     },
     trigger: {
