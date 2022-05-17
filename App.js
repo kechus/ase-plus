@@ -2,14 +2,15 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import DaySchedule from "./screens/DaySchedule";
 import Login from "./screens/Login";
 import About from "./screens/About";
 import FullSchedule from "./screens/FullSchedule";
 import Logout from "./screens/Logout";
+import Calificaciones from "./screens/Calificaciones";
+import Config from "./screens/Config";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getItemFromStorage } from "./Utils/FileHandling";
 import * as Notifications from "expo-notifications";
 
 Notifications.setNotificationHandler({
@@ -65,34 +66,17 @@ function MainDrawerScreen() {
     <Drawer.Navigator>
       <Drawer.Screen name="Horario del día" component={DaySchedule} />
       <Drawer.Screen name="Horario Completo" component={FullSchedule} />
-      <Drawer.Screen name="Logout" component={Logout} />
-    </Drawer.Navigator>
-  );
-}
-
-function FullMainDrawerScreen() {
-  return (
-    <Drawer.Navigator initialRouteName="Horario Completo">
-      <Drawer.Screen name="Horario del día" component={DaySchedule} />
-      <Drawer.Screen name="Horario Completo" component={FullSchedule} />
+      <Drawer.Screen name="Calificaciones" component={Calificaciones} />
+      <Drawer.Screen name="Configuración" component={Config} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
   );
 }
 
 export default function App() {
-  const [screenName, setScreenName] = useState("");
   const notificationListener = useRef();
 
   useEffect(() => {
-    const tryGetInitialScreen = async () => {
-      const initialScreen = await getItemFromStorage("initialScreen");
-      if (initialScreen !== null) {
-        setScreenName(initialScreen);
-      }
-    };
-
-    tryGetInitialScreen();
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {});
 
@@ -111,19 +95,11 @@ export default function App() {
           component={InitialTabScreen}
           options={{ headerShown: false }}
         />
-        {screenName == "" ? (
-          <Stack.Screen
-            name="main"
-            component={MainDrawerScreen}
-            options={{ headerShown: false }}
-          />
-        ) : (
-          <Stack.Screen
-            name="main"
-            component={FullMainDrawerScreen}
-            options={{ headerShown: false }}
-          />
-        )}
+        <Stack.Screen
+          name="main"
+          component={MainDrawerScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

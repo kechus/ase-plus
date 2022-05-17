@@ -2,7 +2,7 @@ const HTMLParser = require('fast-html-parser');
 
 
 
-const parseHTML = (HTMLString) => {
+export const parseHTML = (HTMLString) => {
   const horario = [];
   const root = HTMLParser.parse(HTMLString);
   const numberOfTables = root.querySelectorAll(".tabla").length;
@@ -55,4 +55,50 @@ const buildModule = (th) => {
   return mod;
 };
 
-export { parseHTML }
+export const scheduleParser = (HTMLString) => {
+  const grades = [];
+  const root = HTMLParser.parse(HTMLString);
+  // const tables = root.querySelectorAll(".tabla");
+  // for (const table of tables) {
+  //   if(table.attributes == {class:'tabla','width':950}){
+
+  //   }
+  //   console.log(table.attributes);
+  // }
+  console.log("//");
+
+  const gradesTable = root.querySelectorAll(".tabla")[4];
+  for (let i = 0; i < gradesTable.childNodes.length; i++) {
+    const tagname = gradesTable.childNodes[i].tagName;
+    if (tagname == "tr") {
+      findAsignatures(gradesTable.childNodes[i], grades);
+    }
+  }
+};
+
+const findAsignatures = (tr, grades) => {
+  let realTDcounter = 0;
+  for (let i = 0; i < tr.childNodes.length; i++) {
+    const td = tr.childNodes[i];
+    if (td.tagName == "td") {
+      switch (realTDcounter) {
+        //materia
+        case 2:
+          console.log(td);
+          break;
+        //maestro
+        case 3:
+          console.log(td);
+          break;
+        //estatus
+        case 4:
+          break;
+        //ponderacion
+        case 5:
+          break;
+      }
+      realTDcounter++;
+    }
+  }
+};
+

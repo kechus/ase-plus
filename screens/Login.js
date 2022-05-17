@@ -43,22 +43,35 @@ const Login = ({ navigation, props }) => {
     const scheduleHTML = await fetchSchedule();
     const scheduleObject = parseHTML(scheduleHTML);
     await storeItem(scheduleObject, "schedule");
-    await tryGetLocalSchedule();
+    await storeItem(me, "me");
+    await initialCheck();
     setIsTryingLogin(false);
   };
 
   useEffect(() => {
-    tryGetLocalSchedule();
+    initialCheck();
   }, []);
 
-  const tryGetLocalSchedule = async () => {
+  const initialCheck = async () => {
     const schedule = await getItemFromStorage("schedule");
-    if (schedule !== null) {
-      const notifs = await getAllScheduledNotificationsAsync();
-      if (notifs.length === 0) {
-        await scheduleAllNotifications();
-      }
+
+    if (!schedule) {
+      return;
+    }
+
+    trySchedulingNotifications(schedule);
+    const preferedScreenName = await getItemFromStorage("screenName");
+    if (preferedScreenName) {
+      navigation.navigate("main", { screen: preferedScreenName.name });
+    } else {
       navigation.navigate("main");
+    }
+  };
+
+  const trySchedulingNotifications = async (schedule) => {
+    const notifs = await getAllScheduledNotificationsAsync();
+    if (notifs.length === 0) {
+      await scheduleAllNotifications(schedule);
     }
   };
 

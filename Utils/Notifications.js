@@ -1,5 +1,4 @@
 import * as Notifications from "expo-notifications";
-import { getItemFromStorage } from "../Utils/FileHandling";
 import { getNotificationTime } from "./Time";
 
 export const scheduleNotification = async (info) => {
@@ -17,8 +16,7 @@ export const scheduleNotification = async (info) => {
   });
 };
 
-export const scheduleAllNotifications = async () => {
-  const schedule = await getItemFromStorage("schedule");
+export const scheduleAllNotifications = async (schedule) => {
   for (const row of schedule) {
     const time = getNotificationTime(row.time);
     //so that weekdays start from 2, that being monday

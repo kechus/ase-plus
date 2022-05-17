@@ -1,11 +1,12 @@
 const LOGIN_ROUTE = 'https://ase1.ceti.mx/tecnologo/seguridad/iniciarsesion'
 const SCHEDULE_ROUTE = 'https://ase1.ceti.mx/tecnologo/tgoalumno/horario'
+const GRADES_ROUTE = "https://ase1.ceti.mx/tecnologo/tgoalumno/calificaciones";
 
 import iconv from "iconv-lite";
 import { Buffer } from "buffer";
 
-const login = async (user) => {
-  const resultingHTML = await postUser(LOGIN_ROUTE, user);
+export const login = async (user) => {
+  const resultingHTML = await postXMLHTTP(LOGIN_ROUTE, user);
   return succesfulLogin(resultingHTML);
 };
 
@@ -13,7 +14,7 @@ const succesfulLogin = (resultingHTML) => {
   return !resultingHTML.includes("INGRESO AL SISTEMA ESCOLAR");
 };
 
-function postUser(route, user) {
+function postXMLHTTP(route, user) {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
 
@@ -36,7 +37,7 @@ function postUser(route, user) {
   });
 }
 
-function getSchedule(route) {
+function getXMLHTTP(route) {
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
 
@@ -59,9 +60,12 @@ function getSchedule(route) {
   });
 }
 
-const fetchSchedule = async () => {
-  const buffer = await getSchedule(SCHEDULE_ROUTE);
-  return buffer;
+export const fetchSchedule = async () => {
+  const html = await getXMLHTTP(SCHEDULE_ROUTE);
+  return html;
 };
 
-export { fetchSchedule, login }
+export const fetchGrades = async () => {
+  const html = await getXMLHTTP(GRADES_ROUTE);
+  return html;
+};
