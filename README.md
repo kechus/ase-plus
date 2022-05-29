@@ -25,3 +25,18 @@ Iniciar servidor de desarrollo
  
 ## Correr en emulador
  Utilzando ADB y corriendo `expo start --android` se puede inicar en un emulador, es recomendable utlizar el AVD manager de [Android Studo](https://developer.android.com/studio/)
+ 
+ ## Build
+ Para crear un apk se necesita la linea comandos de eas
+ 	
+	$ npm install --global eas cli
+	
+Con el siguiente comando, iniciar sesión en tu cuenta de [Expo](https://expo.dev/signup)
+	
+	$ eas login
+	
+Despues puedes utilizar `eas whoami` para saber si iniciaste sesión correctamente
+
+Ahora para crear el apk ejecutar el siguiente comando que utiliza el archivo `eas.json` para crear la apk  
+
+	$ eas build -p android --profile preview
