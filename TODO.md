@@ -9,6 +9,7 @@ Este es el el resumen de las tareas que se tiene pensado que existan para la ver
 - [ ] Cambiar estilos de la pantalla de Horario Completo 
 - [ ] Mostrar información completa de la clase al hacer click en un módulo, ya sea en horario completo y en horario del día
 - [ ] Probar notificaciones en varios celulares para probar que funcionen
+- [ ] Agregar a acerca de que es offline
 
 ## Bug
 
@@ -21,3 +22,7 @@ Este es el el resumen de las tareas que se tiene pensado que existan para la ver
 Contenido que puede que en versiones posteriores se agreguen
 
 - [ ] Pantalla de tira de materias
+- [ ] Kardex de calificaciones 
+- [ ] Promedio de materias y sugerencias de promedio
+- [ ] Perfil con datos generales 
+
