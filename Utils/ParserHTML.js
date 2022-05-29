@@ -58,20 +58,23 @@ const buildModule = (th) => {
 export const scheduleParser = (HTMLString) => {
   const grades = [];
   const root = HTMLParser.parse(HTMLString);
-  // const tables = root.querySelectorAll(".tabla");
-  // for (const table of tables) {
-  //   if(table.attributes == {class:'tabla','width':950}){
-
-  //   }
-  //   console.log(table.attributes);
-  // }
+  const trs = root.querySelectorAll("tr");
+  console.log(trs);
+  return;
+  const tables = root.querySelectorAll(".tabla");
+  let gradesTable = root.querySelectorAll(".tabla")[4];
+  for (const table of tables) {
+    if (table.attributes.width == 950) {
+      gradesTable = table;
+    }
+  }
   console.log("//");
-
-  const gradesTable = root.querySelectorAll(".tabla")[4];
-  for (let i = 0; i < gradesTable.childNodes.length; i++) {
+  for (let i = 0; i < 100; i++) {
     const tagname = gradesTable.childNodes[i].tagName;
     if (tagname == "tr") {
       findAsignatures(gradesTable.childNodes[i], grades);
+      console.log(gradesTable);
+      gradesTable = gradesTable.childNodes[i];
     }
   }
 };
