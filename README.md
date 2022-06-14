@@ -29,7 +29,7 @@ Iniciar servidor de desarrollo
  ## Build
  Para crear un apk se necesita la linea comandos de eas
  	
-	$ npm install --global eas cli
+	$ npm install --global eas-cli
 	
 Con el siguiente comando, iniciar sesión en tu cuenta de [Expo](https://expo.dev/signup)
 	

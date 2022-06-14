@@ -12,7 +12,7 @@ Este es el el resumen de las tareas que se tiene pensado que existan para la ver
 
 ## Bug
 
-- [ ] Mostrar error avisando que debe hacer la evaluación docente en el navegador
+- [x] Mostrar error avisando que debe hacer la evaluación docente en el navegador
 - [ ] Encontrar personas con materias que se cruzen para programar ese comportamiento
 - [ ] Recargar componentes cada vez que gane el foco para mostrar la hora actual correcta
 
