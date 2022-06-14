@@ -21,6 +21,7 @@ const ERROR = "Error al iniciar sesión";
 const Login = ({ navigation, props }) => {
   const [registro, setRegistro] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [isTryingLogin, setIsTryingLogin] = useState(false);
   const [isHiddenPassword, setIsHiddenPassword] = useState(true);
   const [isShowingAlert, setIsShowingAlert] = useState(false);
@@ -34,8 +35,9 @@ const Login = ({ navigation, props }) => {
       registro: registro,
       password: password,
     };
-    const success = await login(me);
-    if (!success) {
+    const message = await login(me);
+    if (message !== 'SUCCESS') {
+      setErrorMessage(message)
       setIsShowingAlert(true);
       setIsTryingLogin(false);
       return;
@@ -120,7 +122,7 @@ const Login = ({ navigation, props }) => {
         {isTryingLogin ? <Loading /> : null}
 
         {isShowingAlert ? (
-          <Alert onDismiss={onDismiss} alertText={ERROR} />
+          <Alert onDismiss={onDismiss} alertText={errorMessage} />
         ) : null}
       </View>
     </View>
