@@ -4,11 +4,9 @@ Este es el el resumen de las tareas que se tiene pensado que existan para la ver
 
 ## Contenido
 
-- [ ] Agregar pantalla de calificaciones
-  - [ ] Hacer estilos que queden bien
 - [ ] Cambiar estilos de la pantalla de Horario Completo 
 - [ ] Mostrar información completa de la clase al hacer click en un módulo, ya sea en horario completo y en horario del día
-- [ ] Probar notificaciones en varios celulares para probar que funcionen
+- [ X ] Probar notificaciones en varios celulares para probar que funcionen
 
 ## Bug
 
@@ -21,3 +19,5 @@ Este es el el resumen de las tareas que se tiene pensado que existan para la ver
 Contenido que puede que en versiones posteriores se agreguen
 
 - [ ] Pantalla de tira de materias
+- [ ] Agregar pantalla de calificaciones
+  - [ ] Hacer estilos que queden bien
