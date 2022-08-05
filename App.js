@@ -8,7 +8,6 @@ import Login from "./screens/Login";
 import About from "./screens/About";
 import FullSchedule from "./screens/FullSchedule";
 import Logout from "./screens/Logout";
-import Calificaciones from "./screens/Calificaciones";
 import Config from "./screens/Config";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Notifications from "expo-notifications";
@@ -66,7 +65,6 @@ function MainDrawerScreen() {
     <Drawer.Navigator>
       <Drawer.Screen name="Horario del día" component={DaySchedule} />
       <Drawer.Screen name="Horario Completo" component={FullSchedule} />
-      <Drawer.Screen name="Calificaciones" component={Calificaciones} />
       <Drawer.Screen name="Configuración" component={Config} />
       <Drawer.Screen name="Logout" component={Logout} />
     </Drawer.Navigator>
