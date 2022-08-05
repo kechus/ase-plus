@@ -1,13 +1,15 @@
-import { View, StyleSheet, ScrollView } from "react-native";
-import { useEffect, useState } from "react";
+import { View, StyleSheet, ScrollView, Button} from "react-native";
+import { useEffect, useState, useLayoutEffect } from "react";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import { globalStyles } from "../styles/global";
 import Card from "../components/Card";
 import Timeline from "../components/Timeline";
+import ReloadButton from "../components/ReloadButton";
 import uuid from "react-native-uuid";
 
-const FullSchedule = () => {
+const FullSchedule = ({navigation}) => {
   const [cards, setCards] = useState([]);
+  const [_,setReload] = useState(false) 
 
   useEffect(() => {
     const getScheduleFromStorage = async () => {
@@ -20,6 +22,18 @@ const FullSchedule = () => {
     };
     getScheduleFromStorage();
   }, []);
+
+  useLayoutEffect(()=>{
+    navigation.setOptions({
+      headerRight: ()=>(
+        <ReloadButton onReload={handleReload}/>
+      )
+    })
+  },[navigation])
+
+  const handleReload = () =>{
+    setReload((reload)=>!reload)
+  }
 
   const flipSchedule = (schedule) => {
     const scheduleByDays = [[], [], [], [], [], []];

@@ -1,14 +1,16 @@
-import { React, useEffect, useState } from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { React, useEffect, useLayoutEffect, useState } from "react";
+import { ScrollView, View, StyleSheet, } from "react-native";
 import { getItemFromStorage } from "../Utils/FileHandling";
 import Module from "../components/Module";
 import DatePicker from "../components/DatePicker";
+import ReloadButton from "../components/ReloadButton";
 import { globalStyles } from "../styles/global";
 import { momentIsInHour, selectTodaysWeekday } from "../Utils/Time";
 
-const Home = ({ navigation, route }) => {
+const Home = ({ navigation }) => {
   const [schedule, setSchedule] = useState([]);
   const [day, setDay] = useState(selectTodaysWeekday());
+  const [_, setReload] = useState(false); 
 
   useEffect(() => {
     const getScheduleFromStorage = async () => {
@@ -17,6 +19,27 @@ const Home = ({ navigation, route }) => {
     };
     getScheduleFromStorage();
   }, []);
+
+  useLayoutEffect(()=>{
+    navigation.setOptions({
+      headerRight: ()=>(
+          <ReloadButton onReload={handleReload}/>
+      )
+    })
+  },[navigation])
+
+  const handleReload = async () =>{    
+    // try {
+    //   const me = await getItemFromStorage('me');
+    //   await login(me);
+    //   const scheduleHTML = await fetchSchedule();
+    //   const scheduleObject = parseHTML(scheduleHTML);
+    //   await storeItem(scheduleObject, "schedule");
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    setReload((reload)=>!reload)
+  }
 
   const handleDayChange = (day) => {
     setDay(day);

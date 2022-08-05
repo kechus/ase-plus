@@ -11,6 +11,7 @@ import Logout from "./screens/Logout";
 import Config from "./screens/Config";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Notifications from "expo-notifications";
+import { Text } from "react-native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,13 +63,31 @@ function InitialTabScreen() {
 
 function MainDrawerScreen() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Horario del día" component={DaySchedule} />
-      <Drawer.Screen name="Horario Completo" component={FullSchedule} />
-      <Drawer.Screen name="Configuración" component={Config} />
-      <Drawer.Screen name="Logout" component={Logout} />
-    </Drawer.Navigator>
-  );
+		<Drawer.Navigator>
+			<Drawer.Screen
+				name="Horario del día"
+				component={DaySchedule}
+				options={({ navigation, route }) => ({
+					headerTitle: (props) => <Text {...props} />,
+				})}
+			/>
+			<Drawer.Screen
+				name="Horario Completo"
+				component={FullSchedule}
+				options={({ navigation, route }) => ({
+					headerTitle: (props) => <Text {...props} />,
+				})}
+			/>
+			<Drawer.Screen
+				name="Configuración"
+				component={Config}
+				options={({ navigation, route }) => ({
+					headerTitle: (props) => <Text {...props} />,
+				})}
+			/>
+			<Drawer.Screen name="Logout" component={Logout} />
+		</Drawer.Navigator>
+	);
 }
 
 export default function App() {

@@ -11,7 +11,6 @@ export const COLORS = {
 export const globalStyles = StyleSheet.create({
   body: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
     backgroundColor: COLORS.primary,
   },
   drawerBody: {
