@@ -18,3 +18,12 @@ export const storeItem = async (value, key) => {
     return false;
   }
 };
+
+export const removeItem = async (key) => {
+	try {
+		await AsyncStorage.removeItem(key);
+    return true
+	} catch (e) {
+    return false
+  }
+};

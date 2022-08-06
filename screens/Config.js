@@ -1,7 +1,11 @@
-import { View } from "react-native";
+import { View,TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import { globalStyles, TextSizes, TextTypes } from "../styles/global";
-import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
+import {
+	getItemFromStorage,
+	storeItem,
+	removeItem,
+} from "../Utils/FileHandling";
 import CustomText from "../components/CustomText";
 import ScreenName from "../components/ScreenName";
 
@@ -28,25 +32,40 @@ const Config = () => {
   };
 
   return (
-    <View style={globalStyles.drawerBody}>
-      <CustomText
-        text={"Pantalla inicial: "}
-        type={TextTypes.bold}
-        size={TextSizes.h1}
-      />
+		<View style={globalStyles.drawerBody}>
+			<CustomText
+				text={"Pantalla inicial: "}
+				type={TextTypes.bold}
+				size={TextSizes.h1}
+			/>
 
-      {SCREEN_NAMES.map((name, i) => {
-        const isSelected = selectedScreenName === name;
-        return (
-          <ScreenName
-            key={i}
-            values={{ name: name, index: i, isSelected: isSelected }}
-            onNameSelect={nameChanged}
-          />
-        );
-      })}
-    </View>
-  );
+			{SCREEN_NAMES.map((name, i) => {
+				const isSelected = selectedScreenName === name;
+				return (
+					<ScreenName
+						key={i}
+						values={{ name: name, index: i, isSelected: isSelected }}
+						onNameSelect={nameChanged}
+					/>
+				);
+			})}
+
+			<CustomText
+				text={"Horario completo: "}
+				type={TextTypes.bold}
+				size={TextSizes.h1}
+			/>
+
+			<TouchableOpacity
+				style={globalStyles.option}
+				onPress={() =>
+					removeItem("cardColors")
+				}
+			>
+				<CustomText text="Cambiar color de materias" />
+			</TouchableOpacity>
+		</View>
+	);
 };
 
 export default Config;

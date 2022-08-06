@@ -13,7 +13,6 @@ export const CARD_COLORS = [
   '#e91e63',
   '#9c27b0',
   '#673ab7',
-  '#3f51b5',
   '#2196f3',
   '#00bcd4',
   '#009688',
@@ -65,6 +64,13 @@ export const globalStyles = StyleSheet.create({
     borderWidth: 0.2,
     paddingHorizontal: 2
   },
+  option: {
+    padding: 20,
+    borderWidth: 1,
+    marginBottom: "1%",
+    marginLeft: "5%",
+    width: "70%",
+  }
 });
 
 export const TextTypes = {

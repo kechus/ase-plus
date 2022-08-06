@@ -2,10 +2,7 @@ import {
 	View,
 	StyleSheet,
 	ScrollView,
-	Modal,
-	Text,
-	Alert,
-	Pressable,
+	Text
 } from "react-native";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
@@ -18,20 +15,16 @@ import ClassInfoModal from "../components/ClassInfoModal";
 
 const FullSchedule = ({ navigation }) => {
 	const [cards, setCards] = useState([]);
-	const [_, setReload] = useState(false);
 	const [isShowingModal, setIsShowingModal] = useState(false);
 	const [lastPressedClassInfo, setLastPressedClassInfo] = useState({});
 
 	useEffect(() => {
-		const getScheduleFromStorage = async () => {
-			const storageSchedule = await getItemFromStorage("schedule").catch(() => {
-				return;
-			});
-			const schedule = flipSchedule(storageSchedule);
-			const cards = await buildCards(schedule);
-			setCards(cards);
-		};
 		getScheduleFromStorage();
+		const reload = navigation.addListener('focus', () => {
+			handleReload();
+		  });
+	  
+		  return reload;
 	}, []);
 
 	useLayoutEffect(() => {
@@ -40,8 +33,17 @@ const FullSchedule = ({ navigation }) => {
 		});
 	}, [navigation]);
 
+	const getScheduleFromStorage = async () => {
+		const storageSchedule = await getItemFromStorage("schedule").catch(() => {
+			return;
+		});
+		const schedule = flipSchedule(storageSchedule);
+		const cards = await buildCards(schedule);
+		setCards(cards);
+	};
+
 	const handleReload = () => {
-		setReload((reload) => !reload);
+		getScheduleFromStorage();
 	};
 
 	const flipSchedule = (schedule) => {
@@ -64,13 +66,15 @@ const FullSchedule = ({ navigation }) => {
 		let dayCounter = 0;
 
 		const savedColors = await getItemFromStorage("cardColors");
+		const savedPallete = await getItemFromStorage('pallete');
 		const materiaColor = savedColors ? { ...savedColors } : {};
-		let cardColors = CARD_COLORS.slice();
+		const pallete = savedPallete ? { ...savedPallete } : CARD_COLORS;
+		let cardColors = pallete.slice();
 
 		for (const day of schedule) {
 			for (const myClass of day) {
 				const materia = myClass.materia;
-				if (!materiaColor[materia]) {
+				if (!materiaColor[materia] && materia) {
 					materiaColor[materia] = pickRandomColor(cardColors);
 					cardColors = cardColors.filter(
 						(color) => color !== materiaColor[materia]
@@ -125,11 +129,12 @@ const FullSchedule = ({ navigation }) => {
 				})}
 			</View>
 
-      <ClassInfoModal
-					classInfo={lastPressedClassInfo}
-					onModalHide={() => setIsShowingModal(false)}
-          visible ={isShowingModal}
-        />
+			<ClassInfoModal
+				classInfo={lastPressedClassInfo}
+				onModalHide={() => setIsShowingModal(false)}
+				visible={isShowingModal}
+			/>
+
 		</ScrollView>
 	);
 };
