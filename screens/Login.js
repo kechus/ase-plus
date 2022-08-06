@@ -55,6 +55,17 @@ const Login = ({ navigation, props }) => {
   }, []);
 
   const initialCheck = async () => {
+    const preferedScreenName = await getItemFromStorage("screenName");
+    if (preferedScreenName) {
+      navigation.navigate("main", { screen: preferedScreenName.name });
+    } else {
+      navigation.navigate("main");
+    }
+    const me = await getItemFromStorage('me')
+    if(me){
+      setRegistro(me.registro);
+      setPassword(me.password);
+    }
     const schedule = await getItemFromStorage("schedule");
 
     if (!schedule) {
@@ -62,12 +73,6 @@ const Login = ({ navigation, props }) => {
     }
 
     trySchedulingNotifications(schedule);
-    const preferedScreenName = await getItemFromStorage("screenName");
-    if (preferedScreenName) {
-      navigation.navigate("main", { screen: preferedScreenName.name });
-    } else {
-      navigation.navigate("main");
-    }
   };
 
   const trySchedulingNotifications = async (schedule) => {

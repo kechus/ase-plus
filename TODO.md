@@ -4,9 +4,9 @@ Este es el el resumen de las tareas que se tiene pensado que existan para la ver
 
 ## Contenido
 
-- [ ] Cambiar estilos de la pantalla de Horario Completo 
+- [x] Cambiar estilos de la pantalla de Horario Completo 
 - [ ] Mostrar información completa de la clase al hacer click en un módulo, ya sea en horario completo y en horario del día
-- [ ] Probar notificaciones en varios celulares para probar que funcionen
+- [x] Probar notificaciones en varios celulares para probar que funcionen (desactivar ahorro de bateria)
 
 ## Bug
 
