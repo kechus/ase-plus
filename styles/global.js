@@ -1,4 +1,4 @@
-import { StyleSheet, StatusBar, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 export const COLORS = {
   primary: "#466995",
@@ -7,6 +7,20 @@ export const COLORS = {
   clear: "#4464AD",
   clearer: "#A4B0F5",
 };
+
+export const CARD_COLORS = [
+  '#f44336',
+  '#e91e63',
+  '#9c27b0',
+  '#673ab7',
+  '#3f51b5',
+  '#2196f3',
+  '#00bcd4',
+  '#009688',
+  '#cddc39',
+  '#ff5722',
+  '#ff9800'
+]
 
 export const globalStyles = StyleSheet.create({
   body: {
@@ -49,6 +63,7 @@ export const globalStyles = StyleSheet.create({
     marginBottom: 4,
     borderRadius: 2.5,
     borderWidth: 0.2,
+    paddingHorizontal: 2
   },
 });
 

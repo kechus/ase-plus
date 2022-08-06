@@ -1,7 +1,7 @@
-import { View, StyleSheet, ScrollView, Button} from "react-native";
+import { View, StyleSheet, ScrollView, } from "react-native";
 import { useEffect, useState, useLayoutEffect } from "react";
-import { getItemFromStorage } from "../Utils/FileHandling";
-import { globalStyles } from "../styles/global";
+import { getItemFromStorage, storeItem } from "../Utils/FileHandling";
+import { CARD_COLORS, globalStyles } from "../styles/global";
 import Card from "../components/Card";
 import Timeline from "../components/Timeline";
 import ReloadButton from "../components/ReloadButton";
@@ -17,7 +17,7 @@ const FullSchedule = ({navigation}) => {
         return;
       });
       const schedule = flipSchedule(storageSchedule);
-      const cards = buildCards(schedule);
+      const cards = await buildCards(schedule);
       setCards(cards);
     };
     getScheduleFromStorage();
@@ -45,17 +45,56 @@ const FullSchedule = ({navigation}) => {
     return scheduleByDays;
   };
 
-  const buildCards = (schedule) => {
+  const buildCards = async (schedule) => {    
+    // schedule[5][0] = {a:"1"}
+    const saturdayFree = isSaturdayFree(schedule) 
+    if(saturdayFree){
+      schedule = schedule.slice(0, -1);
+    }
     const myCards = [[], [], [], [], [], []];
     let dayCounter = 0;
+
+    const savedColors = await getItemFromStorage('cardColors');
+    const materiaColor = savedColors ? {...savedColors}: {};
+    let cardColors = CARD_COLORS.slice()
+
     for (const day of schedule) {
       for (const myClass of day) {
-        myCards[dayCounter].push(<Card day={myClass} key={uuid.v4()} />);
+
+        const materia = myClass.materia
+        if (!materiaColor[materia]) {
+					materiaColor[materia] = pickRandomColor(cardColors);
+          cardColors = cardColors.filter((color)=> color !== materiaColor[materia])
+				}
+        const currentColor = materiaColor[materia]
+
+        myCards[dayCounter].push(
+					<Card day={myClass} key={uuid.v4()} color={currentColor} saturdayFree={saturdayFree}/>
+				);
       }
       dayCounter++;
     }
+
+    await storeItem(materiaColor, 'cardColors')
+
+    
+
     return myCards;
   };
+
+  const pickRandomColor = (cardColors) =>{
+    const i = Math.floor( Math.random()* (cardColors.length))
+    return cardColors[i]
+  }
+
+  const isSaturdayFree = (schedule) =>{
+    for(const saturdayClass of schedule[schedule.length - 1]){
+      if(Object.keys(saturdayClass).length !== 0){
+        return false
+      }
+    }
+    return true
+  }
 
   return (
     <ScrollView style={globalStyles.drawerBody}>

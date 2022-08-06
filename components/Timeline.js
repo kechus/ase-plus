@@ -32,8 +32,8 @@ const Timeline = () => {
           : TextTypes.normal;
         return (
           <View key={i} style={styles.timeText}>
-            <CustomText text={lower} type={textType} />
-            <CustomText text={upper} type={textType} />
+            <CustomText text={lower} type={textType} size={13}/>
+            <CustomText text={upper} type={textType} size={13}/>
           </View>
         );
       })}
