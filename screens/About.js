@@ -22,7 +22,14 @@ const About = () => {
         <CustomText text={aboutStrings.info} size={TextSizes.h2} />
 
         <Hr />
+        <CustomText
+          text={aboutStrings.question3}
+          type={TextTypes.bold}
+          size={TextSizes.h1}
+        />
+        <CustomText text={aboutStrings.answer3} size={TextSizes.h2} />
 
+        <Hr />
         <CustomText
           text={aboutStrings.question1}
           type={TextTypes.bold}
@@ -38,6 +45,15 @@ const About = () => {
             type={TextTypes.underlined}
           />
         </TouchableHighlight>
+
+        <Hr />
+        <CustomText
+          text={aboutStrings.question2}
+          type={TextTypes.bold}
+          size={TextSizes.h1}
+        />
+        <CustomText text={aboutStrings.answer2} size={TextSizes.h2} />
+
       </View>
     </ScrollView>
   );

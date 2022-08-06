@@ -18,6 +18,10 @@ const Home = ({ navigation }) => {
       setSchedule(storageSchedule);
     };
     getScheduleFromStorage();
+    const reload = navigation.addListener("focus", () => {
+			handleReload();
+		});
+		  return reload;
   }, []);
 
   useLayoutEffect(()=>{

@@ -17,8 +17,9 @@ export const CARD_COLORS = [
   '#00bcd4',
   '#009688',
   '#cddc39',
-  '#ff5722',
-  '#ff9800'
+  '#eeb5eb',
+  '#ff9800',
+  '#b75343'
 ]
 
 export const globalStyles = StyleSheet.create({
