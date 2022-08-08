@@ -11,6 +11,9 @@ import ScreenName from "../components/ScreenName";
 import { tryLogin } from "../Utils/Net";
 import Loading from "../components/Loading";
 import Alert from "../components/Alert";
+import * as Notifications from "expo-notifications";
+import { getAllScheduledNotificationsAsync } from "expo-notifications";
+import { scheduleAllNotifications } from "../Utils/Notifications";
 
 const SCREEN_NAMES = ["Horario del día", "Horario Completo"];
 
@@ -19,6 +22,7 @@ const Config = () => {
   const [isTryingLogin, setIsTryingLogin] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isShowingAlert, setIsShowingAlert] = useState(false);
+  const [notifs,setNotifs] = useState([])
 
   useEffect(() => {
     const tryGetScreenName = async () => {
@@ -29,6 +33,10 @@ const Config = () => {
     };
 
     tryGetScreenName();
+    getAllScheduledNotificationsAsync().then((notifications) =>
+			setNotifs(notifications)
+		);
+
   }, []);
 
   const nameChanged = async (i) => {
@@ -49,6 +57,17 @@ const Config = () => {
 		setIsShowingAlert(true);
 	});
   }
+  
+  const toggleNotifications = async () => {
+		if (notifs.length === 0) {
+			const schedule = await getItemFromStorage("schedule");
+			await scheduleAllNotifications(schedule);
+		} else {
+			await Notifications.cancelAllScheduledNotificationsAsync();
+		}
+		const notifications = await getAllScheduledNotificationsAsync();
+		setNotifs(notifications);
+	};
 
   const onDismiss = () => {
     setIsShowingAlert(false);
@@ -92,9 +111,18 @@ const Config = () => {
 			/>
 			<TouchableOpacity
 				style={globalStyles.option}
-				onPress={() => handleLogin()}
+				onPress={async () => await handleLogin()}
 			>
 				<CustomText text="Re-iniciar sesión" />
+			</TouchableOpacity>
+
+			<TouchableOpacity
+				style={globalStyles.option}
+				onPress={async () => await toggleNotifications()}
+			>
+				<CustomText text={
+					notifs.length === 0 ? "Encender notificaciones" : 'Apagar notificaciones' 
+				} />
 			</TouchableOpacity>
 
 			{isTryingLogin ? <Loading /> : null}
