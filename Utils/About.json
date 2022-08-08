@@ -1,11 +1,23 @@
 {
-  "titulo": "Acerca de",
-  "info": "En este apartado vienen resueltas las (hipotéticas) preguntas frecuentemente preguntadas para cualquier persona que pueda tener estas dudas.",
+  "questions":[
+    {
+      "question":"Acerca de",
+      "answer": "En este apartado vienen resueltas las (hipotéticas) preguntas frecuentemente preguntadas para cualquier persona que pueda tener estas dudas."
+    },
+    {
+      "question":"¿Que es ase-plus?",
+      "answer": "ase-plus es una aplicación que complementa la plataforma de ase1.ceti.mx, con la intencion de mejorar el horario y agregar notificaciones para cuando tus clases estan por comenzar, todo de manera offline."
+    },
+    {
+      "question":"¿Como utilizarla?",
+      "answer": "Como podrás notar, la aplicación no te pide tus datos para iniciar sesión cada vez que quieres entrar, de hecho ni siquiera necesitas internet para que funcione, esto es porque cada que abres la aplicación esta NO vuelve a iniciar sesión en ase1.ceti.mx si no que ya tiene tu horario guardado en el dispositivo. \n Esto puede causar que en algún momento te puedan llegar a actualizar tu horario pero en la aplicación no se vean los cambios. Para mantener el funcionamiento fuera de linea de la aplicación, hay un boton para re-iniciar la sesión y actualizar el horario en la sección de configuración."
+    },
+    {
+			"question": "¿Por qué las notificaciones no llegan / llegan tarde?",
+			"answer": "ase-plus no tiene un servidor, solo utiliza el servidor del ceti para iniciar la sesión, es decir que tu celular es el único encargado de mostrarte las notificaciones y no siempre se puede confiar en que tu celular priorize estas notificaciones, si este es el caso, desactivar el ahorro de bateria para la aplicación y revisar que tenga todos los permisos de notificaciones hace que funcionen correctamente."
+		}
+  ],
   "question1": "¿Me estas robando la información?",
   "answer1": "No! pero si no me crees puedes ver el código en el repositorio, sin embargo si no eres un nerd solo puedes confiar en mi palabra, solo quiero añadir que hice esta aplicación en mi tiempo libre sin ningún tipo de mala intencion 🤞.",
-  "repoLink": "Link del repositorio.",
-  "question2": "¿Como utilizarla?",
-  "answer2": "Como podrás notar, la aplicación no te pide tus datos para iniciar sesión cada vez que quieres entrar, de hecho ni siquiera necesitas internet para que funcione, esto es porque cada que abres la aplicación esta NO vuelve a iniciar sesión en ase1.ceti.mx si no que ya tiene tu horario guardado en el dispositivo. \n Esto puede causar que en algún momento te puedan llegar a actualizar tu horario pero en la aplicación no se vean los cambios. Para mantener el funcionamiento fuera de linea de la aplicación, hay un boton para re-iniciar la sesión y actualizar el horario en la sección de configuración.",
-  "question3": "¿Que es ase-plus?",
-  "answer3": "ase-plus es una aplicación que complementa la plataforma de ase1.ceti.mx, con la intencion de mejorar el horario y agregar notificaciones para cuando tus clases estan por comenzar, todo de manera offline."
+  "repoLink": "Link del repositorio."
 }

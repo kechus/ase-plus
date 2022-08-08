@@ -12,51 +12,39 @@ import Hr from "../components/Hr";
 
 const About = () => {
   return (
-    <ScrollView style={globalStyles.body}>
-      <View style={styles.container}>
-        <CustomText
-          text={aboutStrings.titulo}
-          type={TextTypes.bold}
-          size={TextSizes.h1}
-        />
-        <CustomText text={aboutStrings.info} size={TextSizes.h2} />
+		<ScrollView style={globalStyles.body}>
+			<View style={styles.container}>
+				{aboutStrings.questions.map((q) => (
+					<View>
+						<CustomText
+							text={q.question}
+							type={TextTypes.bold}
+							size={TextSizes.h1}
+						/>
+						<CustomText text={q.answer} size={TextSizes.h2} />
+    				<Hr />
+					</View>
+				))}
 
-        <Hr />
-        <CustomText
-          text={aboutStrings.question3}
-          type={TextTypes.bold}
-          size={TextSizes.h1}
-        />
-        <CustomText text={aboutStrings.answer3} size={TextSizes.h2} />
+				<CustomText
+					text={aboutStrings.question1}
+					type={TextTypes.bold}
+					size={TextSizes.h1}
+				/>
+				<CustomText text={aboutStrings.answer1} size={TextSizes.h2} />
+				<TouchableHighlight
+					onPress={() => Linking.openURL("https://github.com/kechus/ase-plus")}
+				>
+					<CustomText
+						text={aboutStrings.repoLink}
+						size={TextSizes.h2}
+						type={TextTypes.underlined}
+					/>
+				</TouchableHighlight>
 
-        <Hr />
-        <CustomText
-          text={aboutStrings.question1}
-          type={TextTypes.bold}
-          size={TextSizes.h1}
-        />
-        <CustomText text={aboutStrings.answer1} size={TextSizes.h2} />
-        <TouchableHighlight
-          onPress={() => Linking.openURL("https://github.com/kechus/ase-plus")}
-        >
-          <CustomText
-            text={aboutStrings.repoLink}
-            size={TextSizes.h2}
-            type={TextTypes.underlined}
-          />
-        </TouchableHighlight>
-
-        <Hr />
-        <CustomText
-          text={aboutStrings.question2}
-          type={TextTypes.bold}
-          size={TextSizes.h1}
-        />
-        <CustomText text={aboutStrings.answer2} size={TextSizes.h2} />
-
-      </View>
-    </ScrollView>
-  );
+			</View>
+		</ScrollView>
+	);
 };
 
 const styles = StyleSheet.create({
